@@ -55,26 +55,3 @@ class PhoneBook:
 
 
 
-#     def main(self):
-#         exit_program = False
-#         while not exit_program:
-#             print("1. Add Contact\n2. Search contact\n3. Display Contacts\n4. Edit Contact\n5. Delete Contact\n6. Exit")
-#             choice = int(input("Enter your choice: "))
-#             if choice == 1:
-#                 print(self.add_contact('ARA', '02938420933'))
-#             elif choice == 2:
-#                 print(self.search_contact('ARA'))
-#             elif choice == 3:
-#                 print(self.display_contacts('ARA'))
-#             elif choice == 4:
-#                 print(self.edit_contact('ARA', 'Ayo', '02938420933', '1233'))
-#             elif choice == 5:
-#                 print(self.delete_contact('ARA', '02938420933'))
-#             elif choice == 6:
-#                 exit_program = True
-#                 print("Exiting...")
-#
-#
-#
-# phone_book = PhoneBook()
-# phone_book.main()

@@ -7,7 +7,7 @@ def phone_book():
 
 def test_add_contact(phone_book):
     result = phone_book.add_contact("Ara", "081224595406")
-    assert "Contact 'ARA' added successfully." in result
+    assert "Contact 'Ara' added successfully." in result
 
 def test_that_a_contact_exist(phone_book):
     phone_book.add_contact("Ara", "081224595406")
@@ -27,5 +27,5 @@ def test_edit_contact(phone_book):
 def test_delete_contact(phone_book):
     phone_book.add_contact("Ara", "081224595406")
     delete = phone_book.delete_contact("Ara", "081224595406")
-    assert "Contact 'ara' deleted successfully." in delete
+    assert "Contact 'Ara' deleted successfully." in delete
     assert not phone_book.get_contact()
