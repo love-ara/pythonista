@@ -1,5 +1,6 @@
 from account_and_bank.bank import Bank
-from account_and_bank.account_exception import  InsufficientFundsException, InvalidPinException, InvalidAmountException
+from account_and_bank.account_exception import InsufficientFundsException, InvalidPinException, InvalidAmountException
+
 
 class BankApp:
     gt_bank = Bank("bank")
@@ -44,7 +45,7 @@ class BankApp:
             balance = BankApp.gt_bank.check_balance(int(account_number), pin)
             print("Your balance is:", balance)
         except Exception as e:
-            print(e)
+            print(e.get_message())
         finally:
             BankApp.goto_main_menu()
 
@@ -81,9 +82,8 @@ class BankApp:
         pin = BankApp.input("Enter your pin: ")
         try:
             BankApp.gt_bank.withdraw(int(account), int(amount), pin)
-            print("Withdrawal successful!")
         except Exception as e:
-            print(e)
+            print(e.get_message())
         finally:
             BankApp.goto_main_menu()
 
@@ -95,7 +95,7 @@ class BankApp:
             BankApp.gt_bank.remove_account(int(account_number), pin)
             print("Account closed successfully!")
         except Exception as e:
-            print(e)
+            print(e.get_message())
         finally:
             BankApp.exit_app()
 

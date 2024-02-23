@@ -1,13 +1,9 @@
 from account_and_bank.account_exception import InvalidPinException, InsufficientFundsException, InvalidAmountException
 
 
-def _validate_amount(amount):
-    if amount <= 0:
-        raise InvalidAmountException("Amount should be greater than zero")
-
-
 class Account:
     def __init__(self, number, name, pin):
+        self.amount = 0
         self.name = name
         self.number = number
         self.pin = pin
@@ -41,15 +37,22 @@ class Account:
         if len(pin) != 4:
             raise InvalidPinException("PIN should be four digits long")
 
+    def validate_amount(self, amount):
+        if self.amount <= 0:
+            raise InvalidAmountException("Amount should be greater than zero")
 
     def deposit(self, amount):
-        _validate_amount(amount)
-        self.balance += amount
+        if amount > 0:
+            self.balance += amount
+        elif amount < 0:
+            raise InvalidAmountException("Amount should be greater than zero")
 
     def withdraw(self, amount, pin):
         self._verify_pin(pin)
-        _validate_amount(amount)
-        self._check_for_sufficient_balance(amount)
+        if amount <= 0:
+            raise InvalidAmountException("Amount should be greater than 0")
+        if self.balance < amount:
+            raise InsufficientFundsException("Insufficient funds")
         self.balance -= amount
 
     def _verify_pin(self, entered_pin):

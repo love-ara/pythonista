@@ -10,13 +10,11 @@ class Bank:
 
     def deposit(self, account_number, amount):
         account = self.find_account(account_number)
-        if account:
-            account.deposit(amount)
+        account.deposit(amount)
 
     def withdraw(self, account_number, amount, pin):
         account = self.find_account(account_number)
-        if account:
-            account.withdraw(amount, pin)
+        account.withdraw(amount, pin)
 
     def transfer(self, depositor_account_number, receiver_account_number, amount, pin):
         depositor_account = self.find_account(depositor_account_number)
