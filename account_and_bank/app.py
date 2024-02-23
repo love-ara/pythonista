@@ -1,7 +1,6 @@
 from account_and_bank.bank import Bank
 from account_and_bank.account_exception import  InsufficientFundsException, InvalidPinException, InvalidAmountException
 
-
 class BankApp:
     gt_bank = Bank("bank")
 
