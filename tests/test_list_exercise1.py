@@ -1,6 +1,5 @@
+from python import list_exercise1
 
-
-import list_exercise1
 
 class TestListExercise1:
 
