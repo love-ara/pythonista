@@ -1,12 +1,11 @@
 from account_and_bank.bank import Bank
-from account_and_bank.account_exception import InsufficientFundsException, InvalidPinException, InvalidAmountException
 
 
 class BankApp:
-    gt_bank = Bank("bank")
+    def __init__(self):
+        self.bank = Bank("Aramide Bank")
 
-    @staticmethod
-    def goto_main_menu():
+    def goto_main_menu(self):
         main_menu = """
             Welcome to This bank App!
             What do you want to do today?
@@ -18,112 +17,97 @@ class BankApp:
             6-> Close Account
             7-> Exit App!!!
             """
-        user_input = BankApp.input(main_menu)
+        user_input = input(main_menu)
         option = user_input[0]
         if option == '1':
-            BankApp.create_account()
+            self.create_account()
         elif option == '2':
-            BankApp.withdraw()
+            self.withdraw()
         elif option == '3':
-            BankApp.deposit()
+            self.deposit()
         elif option == '4':
-            BankApp.transfer()
+            self.transfer()
         elif option == '5':
-            BankApp.check_balance()
+            self.check_balance()
         elif option == '6':
-            BankApp.close_account()
+            self.close_account()
         elif option == '7':
-            BankApp.exit_app()
+            self.exit_app()
         else:
-            BankApp.goto_main_menu()
+            self.goto_main_menu()
 
-    @staticmethod
-    def check_balance():
-        account_number = BankApp.input("Enter your account number: ")
-        pin = BankApp.input("Enter your pin: ")
+    def check_balance(self):
+        account_number = input("Enter your account number: ")
+        pin = input("Enter your pin: ")
         try:
-            balance = BankApp.gt_bank.check_balance(int(account_number), pin)
+            balance = self.bank.check_balance(int(account_number), pin)
             print("Your balance is:", balance)
-        except Exception as e:
-            print(e.get_message())
+        except BaseException as e:
+            print(e)
         finally:
-            BankApp.goto_main_menu()
+            self.goto_main_menu()
 
-    @staticmethod
-    def transfer():
-        amount = BankApp.input("Enter transfer amount: ")
-        sender_account = BankApp.input("Enter your account number: ")
-        receiver_account = BankApp.input("Enter the receiving account number: ")
-        pin = BankApp.input("Enter your pin: ")
+    def transfer(self):
+        amount = input("Enter transfer amount: ")
+        sender_account = input("Enter your account number: ")
+        receiver_account = input("Enter the receiving account number: ")
+        pin = input("Enter your pin: ")
         try:
-            BankApp.gt_bank.transfer(int(sender_account), int(receiver_account), int(amount), pin)
+            self.bank.transfer(int(sender_account), int(receiver_account), int(amount), pin)
             print("Transfer successful!")
-        except Exception as e:
+        except BaseException as e:
             print(e)
         finally:
-            BankApp.goto_main_menu()
+            self.goto_main_menu()
 
-    @staticmethod
-    def deposit():
-        account_number = BankApp.input("Enter your account number: ")
-        amount = BankApp.input("Enter an amount: ")
+    def deposit(self):
+        account_number = input("Enter your account number: ")
+        amount = input("Enter an amount: ")
         try:
-            BankApp.gt_bank.deposit(int(account_number), int(amount))
+            self.bank.deposit(int(account_number), int(amount))
             print("Deposit successful!")
-        except Exception as e:
+        except BaseException as e:
             print(e)
         finally:
-            BankApp.goto_main_menu()
+            self.goto_main_menu()
 
-    @staticmethod
-    def withdraw():
-        account = BankApp.input("Enter your account number: ")
-        amount = BankApp.input("Enter the amount: ")
-        pin = BankApp.input("Enter your pin: ")
+    def withdraw(self):
+        account = input("Enter your account number: ")
+        amount = input("Enter the amount: ")
+        pin = input("Enter your pin: ")
         try:
-            BankApp.gt_bank.withdraw(int(account), int(amount), pin)
-        except Exception as e:
-            print(e.get_message())
+            self.bank.withdraw(int(account), int(amount), pin)
+        except BaseException as e:
+            print(e)
         finally:
-            BankApp.goto_main_menu()
+            self.goto_main_menu()
 
-    @staticmethod
-    def close_account():
-        account_number = BankApp.input("Enter the account number: ")
-        pin = BankApp.input("Enter your pin: ")
+    def close_account(self):
+        account_number = input("Enter the account number: ")
+        pin = input("Enter your pin: ")
         try:
-            BankApp.gt_bank.remove_account(int(account_number), pin)
+            self.bank.remove_account(int(account_number), pin)
             print("Account closed successfully!")
-        except Exception as e:
-            print(e.get_message())
+        except BaseException as e:
+            print(e)
         finally:
-            BankApp.exit_app()
+            self.exit_app()
 
-    @staticmethod
-    def create_account():
+    def create_account(self):
         first_name = input("Enter your first name: ")
         last_name = input("Enter your last name: ")
-        name = f"{first_name} + " " + {last_name}"
         pin = input("Enter your pin: ")
-        number = BankApp.gt_bank.get_account_number()
-        new_account = BankApp.gt_bank.register_customer(number, name, pin)
+        new_account = self.bank.register_customer(first_name, last_name, pin)
         print("Account created successfully!")
-        print("Your account number is:", number)
-        BankApp.goto_main_menu()
+        print(f"Your account number is: {self.bank.get_account_number(new_account)}")
+        self.goto_main_menu()
 
     @staticmethod
     def exit_app():
         print("Exiting application...")
         exit()
 
-    @staticmethod
-    def input(prompt):
-        print(prompt)
-        return input()
 
-    @staticmethod
-    def print_output(output):
-        print(output)
-
-
-BankApp.goto_main_menu()
+ara_bank: BankApp = BankApp()
+if __name__ == "__main__":
+    ara_bank.goto_main_menu()
