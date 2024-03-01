@@ -2,6 +2,8 @@ import random
 import uuid
 from typing import Any
 
+from account_and_bank.Insufficient_fund import InsufficientFundsException
+from account_and_bank.Invalid_Amount import InvalidAmountException
 from account_and_bank.account import Account
 
 
@@ -12,11 +14,19 @@ class Bank:
 
     def deposit(self, account_number, amount):
         account = self.find_account(account_number)
-        account.deposit(amount)
+        if amount > 0:
+            account.deposit(amount)
+        elif amount <= 0:
+            raise InvalidAmountException("Amount must be greater than 0")
 
     def withdraw(self, account_number, amount, pin):
         account = self.find_account(account_number)
-        account.withdraw(amount, pin)
+        if 0 < amount <= account.check_balance(pin):
+            account.withdraw(amount, pin)
+        elif amount <= 0:
+            raise InvalidAmountException("Amount must be greater than 0")
+        elif amount > account.check_balance(pin):
+            raise InsufficientFundsException("Insufficient funds!")
 
     def transfer(self, depositor_account_number, receiver_account_number, amount, pin):
         depositor_account = self.find_account(depositor_account_number)
@@ -49,7 +59,6 @@ class Bank:
         for account in self.__accounts:
             if account.number() == account_number:
                 return account
-
         raise ValueError("Account does not exist")
 
     def get_name(self):
@@ -62,3 +71,5 @@ class Bank:
     @staticmethod
     def get_account_number(account: Account):
         return account.number()
+
+

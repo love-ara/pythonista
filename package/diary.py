@@ -39,23 +39,24 @@ class Diary:
     def find_entry(self, id_number: int):
         if not self.isLocked:
             for entry in self.entries:
-                if self.__id_number == id_number:
+                if entry.id_number == id_number:
                     return entry
             return None
 
     def update_entry(self, id_number: int, new_title: str, new_body: str):
         if not self.isLocked:
-            if id_number in self.entries:
-                entry = DiaryEntry(new_title, new_body)
+            for entry in self.entries:
+                if id_number in self.entries:
+                    entry.update_title(new_title, new_body)
                 self.entries.append(entry)
 
     def get_number_of_entry(self):
         return self.number_of_entries
 
-    def get_id_number(self, title: str):
-        for entry in self.entries:
-            self.__id_number = self.get_id_number(title)
-            return self.__id_number
+    # def get_id_number(self, title: str):
+    #     for entry in self.entries:
+    #         self.__id_number = self.get_id_number(title)
+    #         return self.__id_number
 
     def __generate_id_number(self):
         self.__id_number += 1

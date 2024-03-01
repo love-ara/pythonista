@@ -8,6 +8,7 @@ class Diaries:
     def add_diary(self, username: str, password: str):
         diary = Diary(username, password)
         self.diaries.append(diary)
+        return diary
 
     def delete_diary(self, username: str, password: str):
         for diary in self.diaries:

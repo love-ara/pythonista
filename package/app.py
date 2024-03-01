@@ -1,11 +1,15 @@
+from package.diaries import Diaries
 from package.diary import Diary
-from package.user import User
+
+
+class DiaryNotFoundError:
+    pass
 
 
 class Main:
     def __init__(self):
         self.diary = Diary('username', 'password')
-        self.user = User()
+        self.diaries = Diaries()
 
     def goto_main_menu(self):
         main_menu = """
@@ -41,12 +45,21 @@ class Main:
     def create_diary(self):
         username = input('Enter your username: ')
         password = input('Enter your password: ')
-        new_diary = self.user.create_diary(username, password)
+        self.diaries.add_diary(username, password)
         print("Welcome  to your diary " + username)
         self.goto_main_menu()
 
+    def find_diary_by_username(self):
+        try:
+            username = input('Enter your username: ')
+            self.diaries.find_by_username(username)
+        except DiaryNotFoundError:
+            print("Diary not found")
+        finally:
+            self.goto_main_menu()
+
     def lock(self):
-        self.user.lock_diary()
+        self.diary.lock_diary()
         print("You are now locked")
         self.goto_main_menu()
 
@@ -54,7 +67,7 @@ class Main:
         self.lock()
         try:
             password = input('Enter your password: ')
-            self.user.unlock_diary(password)
+            self.diary.unlock_diary(password)
             print('You have successfully unlocked your diary')
         finally:
             self.goto_main_menu()
@@ -62,21 +75,22 @@ class Main:
     def add_entry(self):
         title = input('Enter your title: ')
         body = input('Enter your body: ')
-        self.user.add_entry(title, body)
+        self.diary.create_entry(title,  body)
         print('Entry saved!')
         self.lock()
 
     def update_entry(self):
+        id_number = input('Confirm your id number: ')
         new_title = input('Enter your new title: ')
         new_body = input('Enter your new body: ')
-        self.user.add_entry(new_title, new_body)
+        self.diary.update_entry((int(id_number)), new_title, new_body)
         print('You have successfully updated your entry')
         self.goto_main_menu()
 
     def find_entry(self):
         id_number = input('What is the Id number of the entry you would like to find: ')
         try:
-            entry = self.user.find_entry(int(id_number))
+            entry = self.diary.find_entry(int(id_number))
             print(entry)
         except Exception as e:
             print(e)
@@ -85,7 +99,7 @@ class Main:
 
     def delete_entry(self):
         id_number = input('What is the Id number of the entry you would like to delete: ')
-        self.user.delete_entry(int(id_number))
+        self.diary.delete_entry(int(id_number))
         print("You have successfully deleted an entry")
         self.lock()
 
@@ -95,6 +109,6 @@ class Main:
         exit()
 
 
-a_user: Main = Main()
+user: Main = Main()
 if __name__ == "__main__":
-    a_user.goto_main_menu()
+    user.goto_main_menu()

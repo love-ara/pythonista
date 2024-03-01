@@ -1,22 +1,26 @@
+from account_and_bank.Insufficient_fund import InsufficientFundsException
+from account_and_bank.Invalid_Amount import InvalidAmountException
+
 from account_and_bank.bank import Bank
 
 
 class BankApp:
     def __init__(self):
         self.bank = Bank("Aramide Bank")
+        self._accounts = []
 
     def goto_main_menu(self):
         main_menu = """
-            Welcome to This bank App!
-            What do you want to do today?
-            1-> Create Account
-            2-> Withdraw
-            3-> Deposit
-            4-> Transfer
-            5-> Check Balance
-            6-> Close Account
-            7-> Exit App!!!
-            """
+Welcome to This bank App!
+What do you want to do today?
+1-> Create Account
+2-> Withdraw
+3-> Deposit
+4-> Transfer
+5-> Check Balance
+6-> Close Account
+7-> Exit App!!!
+Select option: """
         user_input = input(main_menu)
         option = user_input[0]
         if option == '1':
@@ -57,6 +61,8 @@ class BankApp:
             print("Transfer successful!")
         except BaseException as e:
             print(e)
+        #except InsufficientFundsException as e:
+           # print(e)
         finally:
             self.goto_main_menu()
 
@@ -77,8 +83,13 @@ class BankApp:
         pin = input("Enter your pin: ")
         try:
             self.bank.withdraw(int(account), int(amount), pin)
+            print("Withdraw successful!")
         except BaseException as e:
             print(e)
+        # except InsufficientFundsException as e:
+        #     print(e)
+        # except InvalidAmountException as e:
+        #     print(e)
         finally:
             self.goto_main_menu()
 

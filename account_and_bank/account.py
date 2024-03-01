@@ -2,6 +2,7 @@ from account_and_bank.Invalid_Amount import InvalidAmountException
 from account_and_bank.Insufficient_fund import InsufficientFundsException
 from account_and_bank.Invalid_pin import InvalidPinException
 
+
 class Account:
     def __init__(self, number, name, pin):
         self._validate_pin(pin)
@@ -31,17 +32,15 @@ class Account:
     @staticmethod
     def _validate_amount(amount):
         if amount <= 0:
+            print("Amount should be greater than zero")
             raise InvalidAmountException("Amount should be greater than zero")
 
     def deposit(self, amount):
         self._validate_amount(amount)
-
         self.__balance += amount
 
     def withdraw(self, amount, pin):
-        self._validate_funds(amount)
-        self._validate_amount(amount)
-
+        self.validate(amount, pin)
         self.__balance -= amount
 
     def validate(self, amount, pin):
