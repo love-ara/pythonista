@@ -2,10 +2,6 @@ from package.diaries import Diaries
 from package.diary import Diary
 
 
-class DiaryNotFoundError:
-    pass
-
-
 class Main:
     def __init__(self):
         self.diary = Diary('username', 'password')
@@ -53,8 +49,8 @@ class Main:
         try:
             username = input('Enter your username: ')
             self.diaries.find_by_username(username)
-        except DiaryNotFoundError:
-            print("Diary not found")
+        except Exception as e:
+            print(e)
         finally:
             self.goto_main_menu()
 
@@ -64,11 +60,13 @@ class Main:
         self.goto_main_menu()
 
     def unlock(self):
-        self.lock()
         try:
             password = input('Enter your password: ')
             self.diary.unlock_diary(password)
             print('You have successfully unlocked your diary')
+            self.goto_main_menu()
+        except Exception as e:
+            print(e)
         finally:
             self.goto_main_menu()
 
@@ -76,6 +74,7 @@ class Main:
         title = input('Enter your title: ')
         body = input('Enter your body: ')
         self.diary.create_entry(title,  body)
+        print(self.diary.id_number)
         print('Entry saved!')
         self.lock()
 
@@ -99,9 +98,14 @@ class Main:
 
     def delete_entry(self):
         id_number = input('What is the Id number of the entry you would like to delete: ')
-        self.diary.delete_entry(int(id_number))
-        print("You have successfully deleted an entry")
-        self.lock()
+        try:
+            self.diary.delete_entry(int(id_number))
+            print("You have successfully deleted an entry")
+        except Exception as e:
+            print(e)
+        finally:
+            self.lock()
+            self.goto_main_menu()
 
     @staticmethod
     def exit():

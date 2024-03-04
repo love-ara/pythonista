@@ -61,8 +61,8 @@ Select option: """
             print("Transfer successful!")
         except BaseException as e:
             print(e)
-        #except InsufficientFundsException as e:
-           # print(e)
+        # except InsufficientFundsException as e:
+        # print(e)
         finally:
             self.goto_main_menu()
 

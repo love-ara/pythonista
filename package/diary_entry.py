@@ -24,4 +24,4 @@ class DiaryEntry:
         return self.title
 
     def __str__(self):
-        return f'ID Number: {self.id_number}\nTitle{self.title}\nBody{self.body}'
+        return f'ID Number: {self.id_number}\nTitle: {self.title}\nBody: {self.body}'
