@@ -1,4 +1,4 @@
-def calculate_payment(successful_deliveries):
+def calculate_payment(successful_deliveries) -> int:
     if successful_deliveries <= 0:
         raise ValueError("Successful deliveries cannot be negative")
     elif successful_deliveries > 100:
