@@ -3,7 +3,7 @@ import unittest
 from src.logistic_func import calculate_payment
 
 
-class TestLogisticFunction(unittest.TestCase):
+class  TestLogisticsFunction(unittest.TestCase):
 
     def test_calculate_below_50(self):
         self.assertEqual(9000, calculate_payment(25))
