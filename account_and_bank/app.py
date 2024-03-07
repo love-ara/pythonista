@@ -86,10 +86,6 @@ Select option: """
             print("Withdraw successful!")
         except BaseException as e:
             print(e)
-        # except InsufficientFundsException as e:
-        #     print(e)
-        # except InvalidAmountException as e:
-        #     print(e)
         finally:
             self.goto_main_menu()
 

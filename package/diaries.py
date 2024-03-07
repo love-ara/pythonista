@@ -1,4 +1,5 @@
 from package.diary import Diary
+from package.diary_not_found import DiaryNotFoundException
 
 
 class Diaries:
@@ -17,6 +18,7 @@ class Diaries:
 
     def find_by_username(self, username: str):
         for diary in self.diaries:
-            if username == diary.get_username:
+            if diary.get_username() == username:
                 return diary
-        return None
+
+        raise ValueError("Diary not found")

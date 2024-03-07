@@ -1,4 +1,5 @@
 from package.diary_entry import DiaryEntry
+from package.diary_not_found import DiaryNotFoundException
 from package.entry_not_found import EntryNotFoundException
 from package.incorrect_password import IncorrectPasswordException
 
